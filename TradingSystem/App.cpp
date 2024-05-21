@@ -31,7 +31,22 @@ public:
 	}
 
 	void sellNiceTiming(string stockCode, int count) {
+		int prices[5];
+		for (int i = 0; i < 5; i++) {
+			prices[i] = m_stockerBroker->getMarketPrice(stockCode, 1);
+		}
 
+		bool isDecrease = true;
+		for (int i = 0; i < 4; i++) {
+			if (prices[i] >= prices[i + 1])
+				continue;
+			isDecrease = false;
+			break;
+		}
+
+		if (isDecrease) {
+			m_stockerBroker->sell(stockCode, count, m_stockerBroker->getMarketPrice(stockCode, 1));
+		}
 	}
 
 private:
