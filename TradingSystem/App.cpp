@@ -1,9 +1,13 @@
+﻿#include "StockerBrocker.h"
 ﻿#include "StockerBrocker.cpp"
 #include "KiwerDriver.cpp"
 #include "NemoDriver.cpp"
 
 class App {
 public:
+	App(StockerBrocker* stockerBroker) : m_stockerBroker(stockerBroker) {
+	}
+
 	void selectStockBrocker(string selectedBrocker)
 	{
 		if (selectedBrocker == "KI")
@@ -23,6 +27,5 @@ public:
 		}
 	}
 
-protected:
-	StockerBrocker* stockerbrocker;
-};
+private:
+	StockerBrocker* m_stockerBroker;

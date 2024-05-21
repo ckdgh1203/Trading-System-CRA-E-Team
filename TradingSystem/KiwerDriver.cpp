@@ -1,5 +1,5 @@
 ﻿#include <string>
-#include "StockerBrocker.cpp"
+#include "StockerBrocker.h"
 #include "KiwerAPI.cpp"
 
 using namespace std;
