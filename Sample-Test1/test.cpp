@@ -131,8 +131,10 @@ TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
 		.WillOnce(Return(80000))
 		.WillOnce(Return(70000))
 		.WillRepeatedly(Return(60000));
+	EXPECT_CALL(mockDriver, buy("005930", 1, 60000))
+		.Times(0);
 
-	EXPECT_THROW(app.buyNiceTiming("005930", 100000), std::exception);
+	app.buyNiceTiming("005930", 100000);
 }
 
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸어둔만큼_현재가_전량매도) {
