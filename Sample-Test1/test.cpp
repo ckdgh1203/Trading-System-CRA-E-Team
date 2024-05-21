@@ -105,30 +105,31 @@ TEST(TradingSystemTest, 현재가확인_종목코드000000_현재가_확인실�
 }
 
 TEST(TradingSystemTest, 기능1_buyNiceTiming_가격상승추세_사용자걸어둔만큼_현재가_전량수량매수) {
-	MockDriver mockdriver;
-	App app(&mockdriver);
+	MockDriver mockDriver;
+	App app(&mockDriver);
 
-	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
+	EXPECT_CALL(mockDriver, getMarketPrice("005930", 1))
 		.WillOnce(Return(80000))
-		.WillOnce(Return(81000))
-		.WillOnce(Return(82000));
-	EXPECT_CALL(mockdriver, buy("005930", 100, 82000))
+		.WillOnce(Return(90000))
+		.WillRepeatedly(Return(100000));
+	EXPECT_CALL(mockDriver, buy)
 		.Times(1);
-	
-	app.buyNiceTiming("005930", 82000);
+
+	app.buyNiceTiming("005930", 100000);
 }
 
 TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
-	MockDriver mockdriver;
-	App app(&mockdriver);
+	MockDriver mockDriver;
+	App app(&mockDriver);
 
-	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
-		.WillOnce(Return(85000))
-		.WillOnce(Return(84000))
-		.WillOnce(Return(83000));
-	EXPECT_CALL(mockdriver, buy).Times(0);
+	EXPECT_CALL(mockDriver, getMarketPrice("005930", 1))
+		.WillOnce(Return(80000))
+		.WillOnce(Return(70000))
+		.WillRepeatedly(Return(60000));
+	EXPECT_CALL(mockDriver, buy)
+		.Times(0);
 
-	app.buyNiceTiming("005930", 82000);
+	app.buyNiceTiming("005930", 100000);
 }
 
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸어둔만큼_현재가_전량매도) {

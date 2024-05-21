@@ -56,8 +56,32 @@ public:
 		return price;
 	}
 
-	void buyNiceTiming(string stockCode, int price) {
+	void updatePreviousPriceForBuy(int  previousPrice[3], std::string& stockCode)
+	{
+		for (int iter = 0; iter < CHECK_TIMES; iter++) {
+			previousPrice[iter] = m_stockerBroker->getMarketPrice(stockCode, CHECK_INTERVAL_IN_MS);
+		}
+	}
 
+	bool bIsRisingPrice(int  previousPrice[3])
+	{
+		for (int iter = 0; iter < CHECK_TIMES-1; iter++) {
+			if (previousPrice[iter] >= previousPrice[iter + 1]) return false;
+		}
+		
+		return true;
+	}
+
+	void buyNiceTiming(string stockCode, int price) {
+		int previousPrice[CHECK_TIMES] = { 0, };
+
+		updatePreviousPriceForBuy(previousPrice, stockCode);
+
+		if (true == bIsRisingPrice(previousPrice)) {
+			int currentPrice = m_stockerBroker->getMarketPrice(stockCode, CHECK_INTERVAL_IN_MS);
+			int stockCount = (price / m_stockerBroker->getMarketPrice(stockCode, CHECK_INTERVAL_IN_MS));
+			m_stockerBroker->buy(stockCode, stockCount, currentPrice);
+		}
 	}
 
 	void sellNiceTiming(string stockCode, int count) {
