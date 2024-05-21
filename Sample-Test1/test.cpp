@@ -81,7 +81,7 @@ TEST(TradingSystemTest, 매도기능_종목코드005930_가격0_수량100_매도
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매도실패) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
 	EXPECT_CALL(mockdriver, sell).Times(0);
@@ -90,7 +90,7 @@ TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매�
 }
 
 TEST(TradingSystemTest, 현재가확인_종목코드005930_현재가78000_확인성공) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
 	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
@@ -104,7 +104,7 @@ TEST(TradingSystemTest, 현재가확인_종목코드000000_현재가_확인실�
 	App app(&mockdriver);
 
 	EXPECT_CALL(mockdriver, getMarketPrice("000000", 5))
-		.WillOnce(Return(78000));
+		.Times(0);
 
 	EXPECT_THROW(app.getPrice("000000", 5), std::exception);
 }
