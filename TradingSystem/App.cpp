@@ -1,4 +1,6 @@
 ﻿#include "StockerBrocker.h"
+#include "KiwerDriver.cpp"
+#include "NemoDriver.cpp"
 #include <iostream>
 
 using namespace std;
@@ -10,7 +12,22 @@ public:
 
 	void selectStockBrocker(string str)
 	{
-
+		if (str == "KI")
+		{
+			KiwerDriver kd;
+			m_stockerBroker = &kd;
+			cout << "KI 증권사를 선택하셨습니다." << endl;
+		}
+		else if (str == "NE")
+		{
+			NemoDriver nd;
+			m_stockerBroker = &nd;
+			cout << "NE 증권사를 선택하셨습니다." << endl;
+		}
+		else
+		{
+			throw exception("증권사는 'KI' 또는 'NE' 중 선택해야 합니다.");
+		}
 	}
 
 	void login(string ID, string password) {
