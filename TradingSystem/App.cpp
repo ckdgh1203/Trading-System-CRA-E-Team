@@ -20,10 +20,15 @@ public:
 	}
 
 	void buy(string stockCode, int count, int price) {
+		if (price == 0) throw std::exception("invalid price");
+		if (count == 0) throw std::exception("invalid count");
+
 		m_stockerBroker->buy(stockCode, count, price);
 	}
 	
 	void sell(string stockCode, int count, int price) {
+		if (price == 0) throw std::exception("invalid price");
+		if (count == 0) throw std::exception("invalid count");
 		m_stockerBroker->sell(stockCode, count, price);
 	}
 

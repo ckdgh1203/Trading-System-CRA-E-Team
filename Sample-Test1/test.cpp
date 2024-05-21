@@ -45,25 +45,25 @@ TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량100_�
 }
 
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격0_수량100_매수실패) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
-	EXPECT_CALL(mockdriver, buy).Times(1);
+	EXPECT_CALL(mockdriver, buy).Times(0);
 
 	EXPECT_THROW(app.buy("005930", 100, 0), std::exception);
 }
 
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량0_매수실패) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
-	EXPECT_CALL(mockdriver, buy).Times(1);
+	EXPECT_CALL(mockdriver, buy).Times(0);
 
 	EXPECT_THROW(app.buy("005930", 0, 80000), std::exception);
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량100_매도성공) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
 	EXPECT_CALL(mockdriver, sell).Times(1);
@@ -72,10 +72,10 @@ TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량100_�
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격0_수량100_매도실패) {
-	MockDriver mockdriver;
+	NiceMock<MockDriver> mockdriver{};
 	App app(&mockdriver);
 
-	EXPECT_CALL(mockdriver, sell).Times(1);
+	EXPECT_CALL(mockdriver, sell).Times(0);
 
 	EXPECT_THROW(app.sell("005930", 100, 0), std::exception);
 }
@@ -84,7 +84,7 @@ TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매�
 	MockDriver mockdriver;
 	App app(&mockdriver);
 
-	EXPECT_CALL(mockdriver, sell).Times(1);
+	EXPECT_CALL(mockdriver, sell).Times(0);
 
 	EXPECT_THROW(app.sell("005930", 0, 80000), std::exception);
 }
