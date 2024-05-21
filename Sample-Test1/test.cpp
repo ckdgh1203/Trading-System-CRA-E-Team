@@ -13,6 +13,71 @@ public:
 	MOCK_METHOD(int, getMarketPrice, (string stockCode, int minute), (override));
 };
 
-TEST(TestCaseName, TestName) {
-	EXPECT_THAT(1, Eq(1));
+
+TEST(TradingSystemTest, 증권사선택_증권사선택에따라_해당증권사인사말출력) {
+
+}
+
+TEST(TradingSystemTest, 앱로그인_정상로그인_root_1234_입력되면로그인성공) {
+
+}
+
+TEST(TradingSystemTest, 앱로그인_비정상로그인_root_4444_입력되면로그인실패) {
+
+}
+
+TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량100_매수성공) {
+
+}
+
+TEST(TradingSystemTest, 매수기능_종목코드000000_가격80000_수량100_매수실패) {
+
+}
+
+TEST(TradingSystemTest, 매수기능_종목코드005930_가격0_수량100_매수실패) {
+
+}
+
+TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량0_매수실패) {
+
+}
+
+TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량100_매도성공) {
+
+}
+
+TEST(TradingSystemTest, 매도기능_종목코드000000_가격80000_수량100_매도실패) {
+
+}
+
+TEST(TradingSystemTest, 매도기능_종목코드005930_가격0_수량100_매도실패) {
+
+}
+
+TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매도실패) {
+
+}
+
+TEST(TradingSystemTest, 현재가확인_종목코드005930_현재가78000_확인성공) {
+
+}
+
+TEST(TradingSystemTest, 현재가확인_종목코드000000_현재가_확인실패) {
+
+}
+
+TEST(TradingSystemTest, 기능1_buyNiceTiming_가격상승추세_사용자걸어둔만큼_현재가_전량수량매수) {
+
+}
+
+TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
+
+}
+
+TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸어둔만큼_현재가_전량매도) {
+
+}
+
+TEST(TradingSystemTest, 기능2_sellNiceTiming_가격상승추세_매도안함) {
+
 }
