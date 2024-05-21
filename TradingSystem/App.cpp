@@ -1,12 +1,9 @@
 ﻿#include "StockerBrocker.h"
-<<<<<<< HEAD
 #include "KiwerDriver.cpp"
 #include "NemoDriver.cpp"
-=======
 #include <iostream>
 
 using namespace std;
->>>>>>> a1921a1f2ae5d83844637af908e2baec883d281c
 
 class App {
 public:
@@ -45,11 +42,6 @@ public:
 
 		m_stockerBroker->buy(stockCode, count, price);
 	}
-<<<<<<< HEAD
-
-	void sell(string stockCode, int count, int price) {
-=======
->>>>>>> a1921a1f2ae5d83844637af908e2baec883d281c
 
 	void sell(string stockCode, int count, int price) {
 		verifyPrice(price);
