@@ -20,15 +20,15 @@ public:
 	}
 
 	void buy(string stockCode, int count, int price) {
-		if (price == 0) throw std::exception("invalid price");
-		if (count == 0) throw std::exception("invalid count");
+		verifyPrice(price);
+		verifyCount(count);
 
 		m_stockerBroker->buy(stockCode, count, price);
 	}
 	
 	void sell(string stockCode, int count, int price) {
-		if (price == 0) throw std::exception("invalid price");
-		if (count == 0) throw std::exception("invalid count");
+		verifyPrice(price);
+		verifyCount(count);
 		m_stockerBroker->sell(stockCode, count, price);
 	}
 
@@ -47,4 +47,14 @@ public:
 
 private:
 	StockerBrocker* m_stockerBroker;
+
+	void verifyCount(int count)
+	{
+		if (count == 0) throw std::exception("invalid count");
+	}
+
+	void verifyPrice(int price)
+	{
+		if (price == 0) throw std::exception("invalid price");
+	}
 };
