@@ -14,11 +14,6 @@ public:
 	MOCK_METHOD(int, getMarketPrice, (string stockCode, int minute), (override));
 };
 
-
-TEST(TradingSystemTest, 증권사선택_증권사선택에따라_해당증권사인사말출력) {
-
-}
-
 TEST(TradingSystemTest, 앱로그인_정상로그인_root_1234_입력되면로그인성공) {
 	NiceMock<MockDriver> mockdriver{};
 	EXPECT_CALL(mockdriver, login(testing::_, testing::_))
