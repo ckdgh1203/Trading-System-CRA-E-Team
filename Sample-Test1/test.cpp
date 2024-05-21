@@ -104,8 +104,6 @@ TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸�
 		.WillOnce(Return(300))
 		.WillOnce(Return(250))
 		.WillOnce(Return(200))
-		.WillOnce(Return(150))
-		.WillOnce(Return(100))
 		.WillOnce(Return(100));
 	EXPECT_CALL(mockdriver, sell).Times(1);
 	app.sellNiceTiming("APPLE", 1000);
@@ -118,8 +116,6 @@ TEST(TradingSystemTest, 기능2_sellNiceTiming_가격상승추세_매도안함) 
 	EXPECT_CALL(mockdriver, getMarketPrice)
 		.WillOnce(Return(300))
 		.WillOnce(Return(250))
-		.WillOnce(Return(300))
-		.WillOnce(Return(350))
 		.WillOnce(Return(400));
 	EXPECT_CALL(mockdriver, sell).Times(0);
 	app.sellNiceTiming("APPLE", 1000);
