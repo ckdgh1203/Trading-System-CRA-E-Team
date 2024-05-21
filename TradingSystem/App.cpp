@@ -25,7 +25,7 @@ public:
 
 		m_stockerBroker->buy(stockCode, count, price);
 	}
-	
+
 	void sell(string stockCode, int count, int price) {
 		verifyPrice(price);
 		verifyCount(count);
@@ -42,11 +42,30 @@ public:
 	}
 
 	void sellNiceTiming(string stockCode, int count) {
+		int prices[CHECK_TIMES];
+		for (int i = 0; i < CHECK_TIMES; i++) {
+			prices[i] = m_stockerBroker->getMarketPrice(stockCode, CHECK_INTERVAL_IN_MS);
+		}
 
+		if (isDecrease(prices)) {
+			m_stockerBroker->sell(stockCode, count, m_stockerBroker->getMarketPrice(stockCode, CHECK_INTERVAL_IN_MS));
+		}
+	}
+
+	bool isDecrease(const int *prices)
+	{
+		for (int i = 0; i < CHECK_TIMES - 1; i++) {
+			if (prices[i] >= prices[i + 1])
+				continue;
+			return false;
+		}
+		return true;
 	}
 
 private:
 	StockerBrocker* m_stockerBroker;
+	const static int CHECK_TIMES = 3;
+	const static int CHECK_INTERVAL_IN_MS = 1;
 
 	void verifyCount(int count)
 	{

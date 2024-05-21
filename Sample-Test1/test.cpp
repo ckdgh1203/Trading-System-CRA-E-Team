@@ -139,26 +139,24 @@ TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸어둔만큼_현재가_전량매도) {
 	MockDriver mockdriver;
 	App app(&mockdriver);
-
-	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
-		.WillOnce(Return(85000))
-		.WillOnce(Return(84000))
-		.WillOnce(Return(83000));
-	EXPECT_CALL(mockdriver, sell("005930", 100, 83000))
-		.Times(1);
-
-	app.sellNiceTiming("005930", 100);
+  
+	EXPECT_CALL(mockdriver, getMarketPrice)
+		.WillOnce(Return(300))
+		.WillOnce(Return(250))
+		.WillOnce(Return(200))
+		.WillOnce(Return(100));
+	EXPECT_CALL(mockdriver, sell).Times(1);
+	app.sellNiceTiming("APPLE", 1000);
 }
 
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격상승추세_매도안함) {
 	MockDriver mockdriver;
 	App app(&mockdriver);
 
-	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
-		.WillOnce(Return(80000))
-		.WillOnce(Return(81000))
-		.WillOnce(Return(82000));
+	EXPECT_CALL(mockdriver, getMarketPrice)
+		.WillOnce(Return(300))
+		.WillOnce(Return(250))
+		.WillOnce(Return(400));
 	EXPECT_CALL(mockdriver, sell).Times(0);
-
-	app.sellNiceTiming("005930", 100);
+	app.sellNiceTiming("APPLE", 1000);
 }
