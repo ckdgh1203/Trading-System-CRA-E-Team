@@ -35,6 +35,8 @@ public:
 
 		for (int iter = 0; iter < 2; iter++) {
 			if (previousPrice[iter] < previousPrice[iter + 1]) continue;
+
+			throw exception("가격 하락세로 보여 buyNiceTiming에 실패합니다.");
 		}
 
 		int currentPrice = m_stockerBroker->getMarketPrice(stockCode, 1);
