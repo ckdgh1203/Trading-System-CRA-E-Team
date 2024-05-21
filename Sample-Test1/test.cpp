@@ -28,7 +28,11 @@ TEST(TradingSystemTest, 앱로그인_비정상로그인_root_4444_입력되면�
 }
 
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량100_매수성공) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
+	EXPECT_CALL(mockdriver, login).Times(1);
 
+	app.buy("005930", 100, 80000);
 }
 
 TEST(TradingSystemTest, 매수기능_종목코드000000_가격80000_수량100_매수실패) {
