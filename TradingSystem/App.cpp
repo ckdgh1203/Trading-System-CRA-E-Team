@@ -7,17 +7,18 @@ public:
 	App(StockerBrocker* stockerBroker) : m_stockerBroker(stockerBroker) {
 	}
 
-	void selectStockBrocker(string selectedBrocker)
+	void selectStockBrocker(string str)
 	{
-		if (selectedBrocker == "KI")
+		if (str == "KI")
 		{
 			KiwerDriver kd;
-			stockerbrocker = &kd;
+			m_stockerBroker = &kd;
 			cout << "KI 증권사를 선택하셨습니다." << endl;
-		}else if (selectedBrocker == "NE")
+		}
+		else if (str == "NE")
 		{
 			NemoDriver nd;
-			stockerbrocker = &nd;
+			m_stockerBroker = &nd;
 			cout << "NE 증권사를 선택하셨습니다." << endl;
 		}
 		else
@@ -26,5 +27,30 @@ public:
 		}
 	}
 
+	void login(string ID, string password) {
+
+	}
+
+	void buy(string stockCode, int count, int price) {
+
+	}
+
+	void sell(string stockCode, int count, int price) {
+
+	}
+
+	int getPrice(string stockCode, int minute) {
+		return 0;
+	}
+
+	void buyNiceTiming(string stockCode, int price) {
+
+	}
+
+	void sellNiceTiming(string stockCode, int count) {
+
+	}
+
 private:
 	StockerBrocker* m_stockerBroker;
+};
