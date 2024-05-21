@@ -81,11 +81,23 @@ TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매�
 }
 
 TEST(TradingSystemTest, 현재가확인_종목코드005930_현재가78000_확인성공) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
+		.WillOnce(Return(78000));
+
+	EXPECT_EQ(app.getPrice("005930", 5), 78000);
 }
 
 TEST(TradingSystemTest, 현재가확인_종목코드000000_현재가_확인실패) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, getMarketPrice("000000", 5))
+		.WillOnce(Return(78000));
+
+	EXPECT_THROW(app.getPrice("000000", 5), std::exception);
 }
 
 TEST(TradingSystemTest, 기능1_buyNiceTiming_가격상승추세_사용자걸어둔만큼_현재가_전량수량매수) {
