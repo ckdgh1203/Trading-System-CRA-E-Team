@@ -1,6 +1,7 @@
 ﻿#include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "../TradingSystem/StockerBrocker.cpp"
+#include "../TradingSystem/StockerBrocker.h"
+#include "../TradingSystem/App.cpp"
 
 using namespace std;
 using namespace testing;
