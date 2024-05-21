@@ -30,37 +30,54 @@ TEST(TradingSystemTest, 앱로그인_비정상로그인_root_4444_입력되면�
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량100_매수성공) {
 	MockDriver mockdriver;
 	App app(&mockdriver);
-	EXPECT_CALL(mockdriver, login).Times(1);
+	EXPECT_CALL(mockdriver, buy).Times(1);
 
 	app.buy("005930", 100, 80000);
 }
 
-TEST(TradingSystemTest, 매수기능_종목코드000000_가격80000_수량100_매수실패) {
-
-}
-
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격0_수량100_매수실패) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, buy).Times(1);
+
+	EXPECT_THROW(app.buy("005930", 100, 0), std::exception);
 }
 
 TEST(TradingSystemTest, 매수기능_종목코드005930_가격80000_수량0_매수실패) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, buy).Times(1);
+
+	EXPECT_THROW(app.buy("005930", 0, 80000), std::exception);
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량100_매도성공) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
-}
+	EXPECT_CALL(mockdriver, sell).Times(1);
 
-TEST(TradingSystemTest, 매도기능_종목코드000000_가격80000_수량100_매도실패) {
-
+	app.sell("005930", 100, 80000);
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격0_수량100_매도실패) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, sell).Times(1);
+
+	EXPECT_THROW(app.sell("005930", 100, 0), std::exception);
 }
 
 TEST(TradingSystemTest, 매도기능_종목코드005930_가격80000_수량0_매도실패) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, sell).Times(1);
+
+	EXPECT_THROW(app.sell("005930", 0, 80000), std::exception);
 }
 
 TEST(TradingSystemTest, 현재가확인_종목코드005930_현재가78000_확인성공) {
@@ -72,7 +89,16 @@ TEST(TradingSystemTest, 현재가확인_종목코드000000_현재가_확인실�
 }
 
 TEST(TradingSystemTest, 기능1_buyNiceTiming_가격상승추세_사용자걸어둔만큼_현재가_전량수량매수) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
+		.WillOnce(Return(80000))
+		.WillOnce(Return(81000))
+		.WillOnce(Return(82000));
+	EXPECT_CALL(mockdriver, buy("005930", 100, 82000));
+
+	app.buyNiceTiming("005930", 82000);
 }
 
 TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
@@ -80,7 +106,16 @@ TEST(TradingSystemTest, 기능1_buyNiceTiming_가격하락추세_매수안함) {
 }
 
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격하락추세_사용자걸어둔만큼_현재가_전량매도) {
+	MockDriver mockdriver;
+	App app(&mockdriver);
 
+	EXPECT_CALL(mockdriver, getMarketPrice("005930", 5))
+		.WillOnce(Return(85000))
+		.WillOnce(Return(84000))
+		.WillOnce(Return(83000));
+	EXPECT_CALL(mockdriver, sell("005930", 100, 83000));
+
+	app.sellNiceTiming("005930", 100);
 }
 
 TEST(TradingSystemTest, 기능2_sellNiceTiming_가격상승추세_매도안함) {
