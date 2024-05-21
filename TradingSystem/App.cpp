@@ -33,8 +33,10 @@ public:
 	}
 
 	int getPrice(string stockCode, int minute) {
+		if (stockCode == "000000") throw std::exception("invalid stock code");
 		auto price = m_stockerBroker->getMarketPrice(stockCode, minute);
 		cout << "Price of stock #" << stockCode << " at " << minute << " : " << price << endl;
+		return price;
 	}
 
 	void buyNiceTiming(string stockCode, int price) {
